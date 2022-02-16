@@ -1,0 +1,3174 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{assgn1\_b}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{A 2 layer shallow network for binary
+classification}\label{a-2-layer-shallow-network-for-binary-classification}
+
+In this assignment you will build a two layer network for the same cat
+vs non-cat binary classification problem. First, lets import the
+required packages. Note that we have copied the functions 'flatten',
+'load\_train\_data' and 'load\_test\_data' functions to
+'assign1\_utils.py'.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib} \PY{c+c1}{\PYZsh{} for plotting}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt} \PY{c+c1}{\PYZsh{} for plotting}
+        \PY{k+kn}{from} \PY{n+nn}{tqdm} \PY{k}{import} \PY{n}{tqdm\PYZus{}notebook} \PY{k}{as} \PY{n}{tqdm}
+        \PY{k+kn}{from} \PY{n+nn}{assign1\PYZus{}utils} \PY{k}{import} \PY{n}{load\PYZus{}train\PYZus{}data}\PY{p}{,} \PY{n}{load\PYZus{}test\PYZus{}data}\PY{p}{,} \PY{n}{flatten}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline 
+\end{Verbatim}
+
+
+    The architecture to be implemented is as follows: Ip
+layer(I)-\/-\/-\/-\/-\textgreater{}hidden
+layer(H)-\/-\/-\/-\/-\/-\textgreater{}op layer(O)
+
+\begin{itemize}
+\tightlist
+\item
+  Ip features shape: nx\(^{[0]}\) x m (a batch of m samples each of dim
+  nx. In this assignment, nx\(^{[0]}\) will be 64*64*3 = 12288).
+\item
+  weights between I and H have shape: nx\(^{[1]}\) x nx\(^{[0]}\).
+  nx\(^{[1]}\) = 32.
+\item
+  bias vector at H has shape: nx\(^{[1]}\) x 1
+\item
+  non-linearity at hidden layer is ReLU
+\item
+  weights between H and O have shape: nx\(^{[2]}\) x nx\(^{[1]}\).
+  nx\(^{[2]}\) = 1.
+\item
+  bias vector at H has shape: nx\(^{[2]}\) x 1
+\item
+  non-linearity at output layer is Sigmoid
+\end{itemize}
+
+The implementation will follow the python style pseudo-code listed in my
+lecture notes.
+
+    First, you will complete the function that intializes weights and biases
+and returns them. Weight matrices have to be initialized similar to how
+weight vector was initialized in logistic regression. Bias vectors have
+to be initialized to zeros.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{initialize\PYZus{}params}\PY{p}{(}\PY{n}{nx}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{      Function that intializes weights to scaled random std normal values and biases to zero and returns them}
+        \PY{l+s+sd}{      }
+        \PY{l+s+sd}{      nx: a list that contains number of nodes in each layer in order. For a l\PYZhy{}layer network, len(nx) = l+1 }
+        \PY{l+s+sd}{          as it includes num of features in input layer also.}
+        \PY{l+s+sd}{          }
+        \PY{l+s+sd}{      returns W: list of numpy arrays of weight matrices}
+        \PY{l+s+sd}{              b: list of numpy arrays of bias vectors}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{Wlist} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{blist} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{nx}\PY{p}{)}\PY{p}{)}\PY{p}{:} 
+                \PY{n}{Wlist}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{nx}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{nx}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.01}\PY{p}{)} \PY{c+c1}{\PYZsh{} replace the ...; np.random.randn will be useful}
+                \PY{n}{blist}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{nx}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} replace the ...; np.zeros will be useful}
+            
+            \PY{k}{return} \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} uncomment the following two lines to test your function}
+        
+        \PY{n}{W}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{initialize\PYZus{}params}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{p}{[}\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape of W[}\PY{l+s+si}{\PYZob{}i\PYZcb{}}\PY{l+s+s1}{]: }\PY{l+s+si}{\PYZob{}W[i].shape\PYZcb{}}\PY{l+s+s1}{, Shape of b[}\PY{l+s+si}{\PYZob{}i\PYZcb{}}\PY{l+s+s1}{]: }\PY{l+s+si}{\PYZob{}b[i].shape\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{W}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Shape of W[0]: (2, 3), Shape of b[0]: (2, 1)
+Shape of W[1]: (1, 2), Shape of b[1]: (1, 1)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} [None, None]
+\end{Verbatim}
+            
+    Now you will complete forward, backward, update\_params and part of the
+main function. Functions f and df are already comlete. Look at the code
+to understand what they do.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{fname} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{      computes and returns the non\PYZhy{}linear function of z given the non\PYZhy{}linearity}
+        \PY{l+s+sd}{      }
+        \PY{l+s+sd}{      z: numpy array of any shape on which the non\PYZhy{}linearity will be applied elementwise}
+        \PY{l+s+sd}{      fname: a string that is name of the non\PYZhy{}linearity. Defaults to \PYZsq{}ReLU\PYZsq{}. Other valid values are}
+        \PY{l+s+sd}{             \PYZsq{}Sigmoid\PYZsq{}, \PYZsq{}Tanh\PYZsq{}, and \PYZsq{}Linear\PYZsq{}.}
+        \PY{l+s+sd}{      }
+        \PY{l+s+sd}{      returns f(z) f is the non\PYZhy{}linear function whose name is fname}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{if} \PY{n}{fname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{fname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mf}{1.}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{z}\PY{p}{)}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{fname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tanh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{fname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{k}{return} \PY{n}{z}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unknown non\PYZhy{}linear function error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{df}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{fname} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{      computes and returns the derivative of the non\PYZhy{}linear function of z with respect to z}
+        \PY{l+s+sd}{      }
+        \PY{l+s+sd}{      z: numpy array of any shape }
+        \PY{l+s+sd}{      fname: a string that is name of the non\PYZhy{}linearity. Defaults to \PYZsq{}ReLU\PYZsq{}. Other valid values are}
+        \PY{l+s+sd}{             \PYZsq{}Sigmoid\PYZsq{}, \PYZsq{}Tanh\PYZsq{}, and \PYZsq{}Linear\PYZsq{}.}
+        \PY{l+s+sd}{      }
+        \PY{l+s+sd}{      returns df/dz where f is the non\PYZhy{}linear function of z. Name of the non\PYZhy{}linear function is fname.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{if} \PY{n}{fname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{k}{return} \PY{n}{z}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}
+            \PY{k}{elif} \PY{n}{fname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{n}{sigma\PYZus{}z} \PY{o}{=} \PY{l+m+mf}{1.}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{z}\PY{p}{)}\PY{p}{)}
+                \PY{k}{return} \PY{n}{sigma\PYZus{}z} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{sigma\PYZus{}z}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{fname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tanh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+            \PY{k}{elif} \PY{n}{fname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{z}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unknown non\PYZhy{}linear function error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{W}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{fname} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{      Forward propagates a through the current layer given W and b}
+        \PY{l+s+sd}{      a: I/p activation from previous activation layer l\PYZhy{}1 of shape nx[l\PYZhy{}1] x m}
+        \PY{l+s+sd}{      w: weight matrix of shape nx[l] x nx[l\PYZhy{}1]}
+        \PY{l+s+sd}{      b: bias vector of shape nx[l+1] x 1}
+        \PY{l+s+sd}{      }
+        \PY{l+s+sd}{      returns anew: the output activation from current layer of shape nx[l] x m}
+        \PY{l+s+sd}{              cache: a tuple that contains current layer\PYZsq{}s linear computation z, previous layer\PYZsq{}s activation a,}
+        \PY{l+s+sd}{                     current layer\PYZsq{}s activation anew and weight matrix W}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} Fill rhs in the following 3 lines. No extra lines of code required.}
+            
+            \PY{n}{z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{a}\PY{p}{)} \PY{o}{+} \PY{n}{b}                       \PY{c+c1}{\PYZsh{} np.dot or np.matmul or @ operator will be useful. Also understand numpy }
+                                       \PY{c+c1}{\PYZsh{} broadcasting for adding vector b to product of W and a}
+            \PY{n}{anew} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{fname}\PY{p}{)}                   \PY{c+c1}{\PYZsh{} function f defined above will be useful}
+            \PY{n}{cache} \PY{o}{=} \PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{anew}\PY{p}{,} \PY{n}{W}\PY{p}{)}                 \PY{c+c1}{\PYZsh{} read the doc string for this function listed above and acoordingly fill rhs}
+            \PY{k}{return} \PY{n}{anew}\PY{p}{,} \PY{n}{cache}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{backward}\PY{p}{(}\PY{n}{da}\PY{p}{,} \PY{n}{cache}\PY{p}{,} \PY{n}{fname} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{      Backward propagates da through the current layer given da, cache and the non\PYZhy{}linearity at the current layer}
+        \PY{l+s+sd}{      da: derivative of loss with respect current layers activation a; shape is nx[l] x m}
+        \PY{l+s+sd}{      cache: a tuple that contains current layer\PYZsq{}s linear computation z, previous layer\PYZsq{}s activation aprev,}
+        \PY{l+s+sd}{                     current layer\PYZsq{}s activation a and weight matrix W between previous layer l\PYZhy{}1 and current layer l}
+        \PY{l+s+sd}{      fname: name of the non\PYZhy{}linearity at current layer l; this will be helpful for local gradient computation in }
+        \PY{l+s+sd}{             chain rule}
+        \PY{l+s+sd}{      }
+        \PY{l+s+sd}{      returns dW: derivative of loss with respect to W; shape is nx[l] x nx[l\PYZhy{}1]}
+        \PY{l+s+sd}{              db: derivative of loss with respect to b; shape is nx[l] x 1}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} Fill rhs in the following 5 lines. No extra lines of code required.}
+            
+            \PY{n}{z}\PY{p}{,} \PY{n}{aprev}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{W} \PY{o}{=} \PY{n}{cache}                     \PY{c+c1}{\PYZsh{} extract from cache}
+            \PY{n}{dz} \PY{o}{=} \PY{n}{da} \PY{o}{*} \PY{n}{df}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{fname}\PY{p}{)}                     \PY{c+c1}{\PYZsh{} compute dz as incoming grad da * local grad. For local grad, function df defined }
+                                                       \PY{c+c1}{\PYZsh{} above will be useful}
+            \PY{n}{dW} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{dz}\PY{p}{,} \PY{n}{aprev}\PY{o}{.}\PY{n}{T}\PY{p}{)}                \PY{c+c1}{\PYZsh{} np.dot or np.amtmul or @ operator will be useful. Also .T will be useful for }
+                                                       \PY{c+c1}{\PYZsh{} transposing}
+            \PY{n}{db} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{dz}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}     \PY{c+c1}{\PYZsh{} np.sum will be useful}
+            \PY{n}{daprev} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{W}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{dz}\PY{p}{)}               \PY{c+c1}{\PYZsh{} np.dot or np.amtmul or @ operator will be useful. Also .T will be useful for }
+                                                       \PY{c+c1}{\PYZsh{} transposing}
+            \PY{k}{return} \PY{n}{daprev}\PY{p}{,} \PY{n}{dW}\PY{p}{,} \PY{n}{db}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{update\PYZus{}params}\PY{p}{(}\PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}\PY{p}{,} \PY{n}{dWlist}\PY{p}{,} \PY{n}{dblist}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{      Updates all the parameters using gradient descent rule}
+        \PY{l+s+sd}{      }
+        \PY{l+s+sd}{      Wlist: a lsit of all weight matrices to be updated}
+        \PY{l+s+sd}{      blist: a list of bias vectors to be updated}
+        \PY{l+s+sd}{      dWlist: a list of gradients of loss with respect to weight matrices}
+        \PY{l+s+sd}{      dblist: a list of gradients of loss with respect to bias vectors}
+        \PY{l+s+sd}{      alpha: learning rate}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Wlist}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{Wlist}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{alpha} \PY{o}{*} \PY{n}{dWlist}\PY{p}{[}\PY{n}{i}\PY{p}{]}         \PY{c+c1}{\PYZsh{} fill rhs}
+                \PY{n}{blist}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{alpha} \PY{o}{*} \PY{n}{dblist}\PY{p}{[}\PY{n}{i}\PY{p}{]}         \PY{c+c1}{\PYZsh{} fill rhs}
+                \PY{c+c1}{\PYZsh{} ADDED}
+        \PY{c+c1}{\PYZsh{}         print(dWlist[0], dblist[0])}
+        \PY{c+c1}{\PYZsh{}         print(\PYZdq{}\PYZbs{}n\PYZdq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} def main(): \PYZsh{} main function to train the model}
+         \PY{k}{def} \PY{n+nf}{train}\PY{p}{(}\PY{n}{lr} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{iters} \PY{o}{=} \PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{n\PYZus{}layers} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{n\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{fun\PYZus{}name\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{:}   
+             \PY{c+c1}{\PYZsh{} load train data}
+             \PY{n}{a0}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{load\PYZus{}train\PYZus{}data}\PY{p}{(}\PY{p}{)}
+             \PY{n}{a0} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{a0}\PY{p}{)}
+             \PY{n}{a0} \PY{o}{=} \PY{n}{a0}\PY{o}{/}\PY{l+m+mf}{255.} \PY{c+c1}{\PYZsh{} normalize the data to [0, 1]    }
+             
+             \PY{c+c1}{\PYZsh{} set some hyperparameters and epsilon}
+         \PY{c+c1}{\PYZsh{}     alpha = 0.001    }
+             \PY{n}{alpha} \PY{o}{=} \PY{n}{lr}    
+         \PY{c+c1}{\PYZsh{}     miter = 5000}
+             \PY{n}{miter} \PY{o}{=} \PY{n}{iters}
+             \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}6}
+         \PY{c+c1}{\PYZsh{}     num\PYZus{}layers = 2}
+             \PY{n}{num\PYZus{}layers} \PY{o}{=} \PY{n}{n\PYZus{}layers}
+         \PY{c+c1}{\PYZsh{}     nx = [a0.shape[0], 32, 1]}
+             \PY{n}{nx} \PY{o}{=} \PY{n}{n\PYZus{}x}
+         \PY{c+c1}{\PYZsh{}     print(\PYZsq{}sai: \PYZsq{},nx)}
+             \PY{n}{m} \PY{o}{=} \PY{n}{a0}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}     fname\PYZus{}list = [\PYZsq{}ReLU\PYZsq{}, \PYZsq{}Sigmoid\PYZsq{}]}
+             \PY{n}{fname\PYZus{}list} \PY{o}{=} \PY{n}{fun\PYZus{}name\PYZus{}list}
+             
+             \PY{n}{loss1}\PY{p}{,} \PY{n}{loss2}\PY{p}{,} \PY{n}{loss3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{inf}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{inf}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{inf}
+             
+             \PY{c+c1}{\PYZsh{} initialize weights and biases}
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{24}\PY{p}{)}
+             \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist} \PY{o}{=} \PY{n}{initialize\PYZus{}params}\PY{p}{(}\PY{n}{nx}\PY{p}{)}      \PY{c+c1}{\PYZsh{} fill rhs }
+             \PY{n}{loss} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} initialize list of caches from each layer, gradients of weights at each layer, gradients of biases at}
+             \PY{c+c1}{\PYZsh{} each layer to empty}
+             \PY{n}{cache}\PY{p}{,} \PY{n}{dWlist}\PY{p}{,} \PY{n}{dblist} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{k+kc}{None}\PY{p}{]}\PY{o}{*}\PY{n}{num\PYZus{}layers} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{miter}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{a} \PY{o}{=} \PY{n}{a0}
+                 \PY{c+c1}{\PYZsh{} forward propagate through each layer}
+                 \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}layers}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{a}\PY{p}{,} \PY{n}{cache}\PY{p}{[}\PY{n}{l}\PY{p}{]} \PY{o}{=} \PY{n}{forward}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{Wlist}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{blist}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{fname\PYZus{}list}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{)}                       \PY{c+c1}{\PYZsh{} Fill rhs. call forward function with }
+                                                         \PY{c+c1}{\PYZsh{} appropriate arguments}
+         
+                 \PY{n}{L}  \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{m}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{a}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}                                    \PY{c+c1}{\PYZsh{} Fill rhs. compute loss L}
+                 
+         \PY{c+c1}{\PYZsh{}         loss1 = loss2}
+         \PY{c+c1}{\PYZsh{}         loss2 = loss3}
+         \PY{c+c1}{\PYZsh{}         loss3 = L}
+                 
+         \PY{c+c1}{\PYZsh{}         if L \PYZgt{} loss2 and loss2 \PYZlt{} loss1:}
+         \PY{c+c1}{\PYZsh{}             alpha = alpha / 2.0}
+         \PY{c+c1}{\PYZsh{}             print(\PYZdq{}updated alpha: \PYZdq{}, alpha)}
+                 \PY{k}{if} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1} \PY{o}{\PYZpc{}} \PY{l+m+mi}{10000} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{alpha} \PY{o}{=} \PY{n}{alpha} \PY{o}{/} \PY{l+m+mf}{2.0}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{updated alpha: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}
+                     
+                 \PY{n}{da} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{m}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{a} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{p}{(}\PY{n}{a} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{a}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{epsilon}\PY{p}{)}\PY{p}{)}                                 \PY{c+c1}{\PYZsh{} Fill rhs. compute da}
+         
+                 \PY{c+c1}{\PYZsh{} backward propagate through each layer to compute gradients}
+                 \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}layers}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{da}\PY{p}{,} \PY{n}{dWlist}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{dblist}\PY{p}{[}\PY{n}{l}\PY{p}{]} \PY{o}{=}  \PY{n}{backward}\PY{p}{(}\PY{n}{da}\PY{p}{,} \PY{n}{cache}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{fname\PYZus{}list}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{)}                 \PY{c+c1}{\PYZsh{} Fill rhs. call backward function with }
+                                                                 \PY{c+c1}{\PYZsh{} appropriate arguments}
+         
+                 \PY{c+c1}{\PYZsh{} update\PYZus{}params}
+                 \PY{n}{update\PYZus{}params}\PY{p}{(}\PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}\PY{p}{,} \PY{n}{dWlist}\PY{p}{,} \PY{n}{dblist}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}          \PY{c+c1}{\PYZsh{} Replace ...; call update\PYZus{}params function with appropriate arguments}
+                 \PY{n}{loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{L}\PY{p}{)}
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{100}: \PYZsh{} print loss every 100 iterations
+                         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss at iteration }\PY{l+s+si}{\PYZob{}i\PYZcb{}}\PY{l+s+s1}{:}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{np.asscalar(L):.8f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train accuracy: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{test\PYZus{}model(a0, y, Wlist, blist, fun\PYZus{}name\PYZus{}list) * 100:.2f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                         
+             \PY{k}{return} \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}\PY{p}{,} \PY{n}{loss}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{main}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} main function to train the model}
+         \PY{c+c1}{\PYZsh{} def train(lr = 0.001, iters = 5000, n\PYZus{}layers = 2, n\PYZus{}x = [batch\PYZus{}size, 32, 1], fun\PYZus{}name\PYZus{}list = [\PYZsq{}ReLU\PYZsq{}, \PYZsq{}Sigmoid\PYZsq{}])    }
+             \PY{c+c1}{\PYZsh{} load train data}
+             \PY{n}{a0}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{load\PYZus{}train\PYZus{}data}\PY{p}{(}\PY{p}{)}
+             \PY{n}{a0} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{a0}\PY{p}{)}
+             \PY{n}{a0} \PY{o}{=} \PY{n}{a0}\PY{o}{/}\PY{l+m+mf}{255.} \PY{c+c1}{\PYZsh{} normalize the data to [0, 1]    }
+             
+             \PY{c+c1}{\PYZsh{} set some hyperparameters and epsilon}
+             \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.01}    
+             \PY{n}{miter} \PY{o}{=} \PY{l+m+mi}{2000}
+             \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}6}
+             \PY{n}{num\PYZus{}layers} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{n}{nx} \PY{o}{=} \PY{p}{[}\PY{n}{a0}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{m} \PY{o}{=} \PY{n}{a0}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{fname\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} initialize weights and biases}
+             \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist} \PY{o}{=} \PY{n}{initialize\PYZus{}params}\PY{p}{(}\PY{n}{nx}\PY{p}{)}      \PY{c+c1}{\PYZsh{} fill rhs }
+             
+             \PY{c+c1}{\PYZsh{} initialize list of caches from each layer, gradients of weights at each layer, gradients of biases at}
+             \PY{c+c1}{\PYZsh{} each layer to empty}
+             \PY{n}{cache}\PY{p}{,} \PY{n}{dWlist}\PY{p}{,} \PY{n}{dblist} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{k+kc}{None}\PY{p}{]}\PY{o}{*}\PY{n}{num\PYZus{}layers} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+             \PY{n}{dw\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{miter}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{miter}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{miter}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{a} \PY{o}{=} \PY{n}{a0}
+                 \PY{c+c1}{\PYZsh{} forward propagate through each layer}
+                 \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}layers}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{a}\PY{p}{,} \PY{n}{cache}\PY{p}{[}\PY{n}{l}\PY{p}{]} \PY{o}{=} \PY{n}{forward}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{Wlist}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{blist}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{fname\PYZus{}list}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{)}                       \PY{c+c1}{\PYZsh{} Fill rhs. call forward function with }
+                                                         \PY{c+c1}{\PYZsh{} appropriate arguments}
+         
+                 \PY{n}{L}  \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{m}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{a}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}                              \PY{c+c1}{\PYZsh{} Fill rhs. compute loss L}
+                 
+                 
+                 
+                 \PY{n}{da} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{m}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{a} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{p}{(}\PY{n}{a} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{a}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{epsilon}\PY{p}{)}\PY{p}{)}                                 \PY{c+c1}{\PYZsh{} Fill rhs. compute da}
+         
+                 \PY{c+c1}{\PYZsh{} backward propagate through each layer to compute gradients}
+                 \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}layers}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{da}\PY{p}{,} \PY{n}{dWlist}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{dblist}\PY{p}{[}\PY{n}{l}\PY{p}{]} \PY{o}{=}  \PY{n}{backward}\PY{p}{(}\PY{n}{da}\PY{p}{,} \PY{n}{cache}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{fname\PYZus{}list}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{)}                 \PY{c+c1}{\PYZsh{} Fill rhs. call backward function with }
+                     \PY{n}{dw\PYZus{}list}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{dWlist}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{)}                                            \PY{c+c1}{\PYZsh{} appropriate arguments}
+                 \PY{c+c1}{\PYZsh{} update\PYZus{}params}
+                 \PY{n}{update\PYZus{}params}\PY{p}{(}\PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}\PY{p}{,} \PY{n}{dWlist}\PY{p}{,} \PY{n}{dblist}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}          \PY{c+c1}{\PYZsh{} Replace ...; call update\PYZus{}params function with appropriate arguments}
+                 
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{100}: \PYZsh{} print loss every 100 iterations
+                         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss at iteration }\PY{l+s+si}{\PYZob{}i\PYZcb{}}\PY{l+s+s1}{:}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{np.asscalar(L):.4f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}                 for j in range(len(Wlist)):}
+         \PY{c+c1}{\PYZsh{}                     print(\PYZdq{}Norm(dW)\PYZdq{},j,\PYZdq{}: \PYZdq{},np.linalg.norm(dWlist[j]))}
+             
+         \PY{c+c1}{\PYZsh{}     x\PYZus{}axis = [i for i in range(1, miter + 1)]}
+         \PY{c+c1}{\PYZsh{}     colours = [\PYZsq{}b\PYZsq{}, \PYZsq{}r\PYZsq{}]}
+         \PY{c+c1}{\PYZsh{}     for i in range(num\PYZus{}layers):}
+         \PY{c+c1}{\PYZsh{}         plt.plot(x\PYZus{}axis, dw\PYZus{}list[i], colours[i], label = \PYZsq{}dWlist[\PYZsq{}+str(i)+\PYZsq{}]\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}     plt.legend()}
+         \PY{c+c1}{\PYZsh{}     plt.xlabel(\PYZdq{}\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}     plt.show()}
+         
+                         
+             \PY{k}{return} \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+             \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist} \PY{o}{=} \PY{n}{main}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loss at iteration 0:	0.6961
+Loss at iteration 100:	0.6372
+Loss at iteration 200:	0.5972
+Loss at iteration 300:	0.5319
+Loss at iteration 400:	0.4537
+Loss at iteration 500:	0.4351
+Loss at iteration 600:	0.3945
+Loss at iteration 700:	0.3447
+Loss at iteration 800:	0.2979
+Loss at iteration 900:	0.2175
+Loss at iteration 1000:	0.3820
+Loss at iteration 1100:	0.1478
+Loss at iteration 1200:	0.1013
+Loss at iteration 1300:	0.0767
+Loss at iteration 1400:	0.0637
+Loss at iteration 1500:	0.0510
+Loss at iteration 1600:	0.0427
+Loss at iteration 1700:	0.0367
+Loss at iteration 1800:	0.0318
+Loss at iteration 1900:	0.0279
+
+    \end{Verbatim}
+
+    Let's now test the model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{fname\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{num\PYZus{}layers} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}\PY{p}{,} \PY{n}{fname\PYZus{}list}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}layers}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{a}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{forward}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{Wlist}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{blist}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{fname\PYZus{}list}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{)}
+             \PY{n}{predictions} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+             \PY{n}{predictions}\PY{p}{[}\PY{n}{a} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.5}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{predictions}
+         
+         \PY{k}{def} \PY{n+nf}{test\PYZus{}model}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}\PY{p}{,} \PY{n}{fname\PYZus{}list}\PY{p}{)}\PY{p}{:}
+             \PY{n}{predictions} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}\PY{p}{,} \PY{n}{fname\PYZus{}list}\PY{p}{)}
+             \PY{n}{acc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{predictions} \PY{o}{==} \PY{n}{y}\PY{p}{)}
+             \PY{n}{acc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asscalar}\PY{p}{(}\PY{n}{acc}\PY{p}{)}
+             \PY{k}{return} \PY{n}{acc}
+         
+         \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{load\PYZus{}train\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{/}\PY{l+m+mf}{255.} \PY{c+c1}{\PYZsh{} normalize the data to [0, 1]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train accuracy: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{test\PYZus{}model(x, y, Wlist, blist, fname\PYZus{}list) * 100:.2f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{load\PYZus{}test\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{/}\PY{l+m+mf}{255.} \PY{c+c1}{\PYZsh{} normalize the data to [0, 1]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test accuracy: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{test\PYZus{}model(x, y, Wlist, blist, fname\PYZus{}list) * 100:.2f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train accuracy: 100.00\%
+test accuracy: 74.00\%
+
+    \end{Verbatim}
+
+    \section{Questions}\label{questions}
+
+\subsubsection{1. Why has the test accuracy not improved with this
+2-layer network?
+Explain.}\label{why-has-the-test-accuracy-not-improved-with-this-2-layer-network-explain.}
+
+    \paragraph{Ans: We see that the train accuracy has reached 100\% while
+the test accuracy remains below 80\%. Clearly, this is the case of
+overfitting. I feel the reason for this can be either presence of noise
+or lack of representative
+samples.}\label{ans-we-see-that-the-train-accuracy-has-reached-100-while-the-test-accuracy-remains-below-80.-clearly-this-is-the-case-of-overfitting.-i-feel-the-reason-for-this-can-be-either-presence-of-noise-or-lack-of-representative-samples.}
+
+    \subsubsection{2. How does replacement of ReLU by Sigmoid at the hidden
+layer affect the
+model?}\label{how-does-replacement-of-relu-by-sigmoid-at-the-hidden-layer-affect-the-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}for train(lr = 0.001, iters = 5000, n\PYZus{}layers = 2, n\PYZus{}x = [64*64*3, 32, 1], fun\PYZus{}name\PYZus{}list = [\PYZsq{}ReLU\PYZsq{}, \PYZsq{}Sigmoid\PYZsq{}])}
+         \PY{n}{n\PYZus{}layers} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{n\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{fun\PYZus{}name\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}\PY{p}{,} \PY{n}{losses} \PY{o}{=} \PY{n}{train}\PY{p}{(}\PY{n}{lr} \PY{o}{=} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{iters} \PY{o}{=} \PY{l+m+mi}{2000}\PY{p}{,} \PY{n}{n\PYZus{}layers} \PY{o}{=} \PY{n}{n\PYZus{}layers}\PY{p}{,} \PY{n}{n\PYZus{}x} \PY{o}{=} \PY{n}{n\PYZus{}x}\PY{p}{,} \PY{n}{fun\PYZus{}name\PYZus{}list} \PY{o}{=} \PY{n}{fun\PYZus{}name\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loss at iteration 0:	0.69115135
+train accuracy: 65.55\%
+
+
+Loss at iteration 100:	0.64376420
+train accuracy: 65.55\%
+
+
+Loss at iteration 200:	0.64151756
+train accuracy: 65.55\%
+
+
+Loss at iteration 300:	0.63869933
+train accuracy: 65.55\%
+
+
+Loss at iteration 400:	0.63515441
+train accuracy: 65.55\%
+
+
+Loss at iteration 500:	0.63094570
+train accuracy: 65.55\%
+
+
+Loss at iteration 600:	0.62611108
+train accuracy: 65.55\%
+
+
+Loss at iteration 700:	0.62067883
+train accuracy: 65.55\%
+
+
+Loss at iteration 800:	0.61466883
+train accuracy: 65.55\%
+
+
+Loss at iteration 900:	0.60808107
+train accuracy: 65.55\%
+
+
+Loss at iteration 1000:	0.60088547
+train accuracy: 65.55\%
+
+
+Loss at iteration 1100:	0.59302904
+train accuracy: 65.55\%
+
+
+Loss at iteration 1200:	0.58446466
+train accuracy: 65.55\%
+
+
+Loss at iteration 1300:	0.57513294
+train accuracy: 65.55\%
+
+
+Loss at iteration 1400:	0.56490314
+train accuracy: 65.55\%
+
+
+Loss at iteration 1500:	0.55359772
+train accuracy: 65.07\%
+
+
+Loss at iteration 1600:	0.54119290
+train accuracy: 65.07\%
+
+
+Loss at iteration 1700:	0.52792026
+train accuracy: 67.46\%
+
+
+Loss at iteration 1800:	0.51404625
+train accuracy: 69.38\%
+
+
+Loss at iteration 1900:	0.49975307
+train accuracy: 73.21\%
+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{load\PYZus{}train\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{/}\PY{l+m+mf}{255.} \PY{c+c1}{\PYZsh{} normalize the data to [0, 1]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train accuracy: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{test\PYZus{}model(x, y, Wlist, blist, fun\PYZus{}name\PYZus{}list) * 100:.2f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{load\PYZus{}test\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{/}\PY{l+m+mf}{255.} \PY{c+c1}{\PYZsh{} normalize the data to [0, 1]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test accuracy: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{test\PYZus{}model(x, y, Wlist, blist, fun\PYZus{}name\PYZus{}list) * 100:.2f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train accuracy: 75.12\%
+test accuracy: 60.00\%
+
+    \end{Verbatim}
+
+    \paragraph{\texorpdfstring{We see that the decrease in the loss has
+slowed down if we change ReLU to sigmoid. This is because of the fact
+that with increase in the absolute value of \(z\), \(sigmoid(z)\)
+becomes increasingly small leading to smaller updates in
+weights.}{We see that the decrease in the loss has slowed down if we change ReLU to sigmoid. This is because of the fact that with increase in the absolute value of z, sigmoid(z) becomes increasingly small leading to smaller updates in weights.}}\label{we-see-that-the-decrease-in-the-loss-has-slowed-down-if-we-change-relu-to-sigmoid.-this-is-because-of-the-fact-that-with-increase-in-the-absolute-value-of-z-sigmoidz-becomes-increasingly-small-leading-to-smaller-updates-in-weights.}
+
+    \subsubsection{3. Expand the 2 layer network to, say a 4 layer network
+of your choice. How does this model compare to logistic regresion and
+2-layer
+network?}\label{expand-the-2-layer-network-to-say-a-4-layer-network-of-your-choice.-how-does-this-model-compare-to-logistic-regresion-and-2-layer-network}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}for train(lr = 0.001, iters = 5000, n\PYZus{}layers = 2, n\PYZus{}x = [64*64*3, 32, 1], fun\PYZus{}name\PYZus{}list = [\PYZsq{}ReLU\PYZsq{}, \PYZsq{}Sigmoid\PYZsq{}])}
+         \PY{n}{n\PYZus{}layers} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{n\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{fun\PYZus{}name\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}\PY{p}{,} \PY{n}{losses} \PY{o}{=} \PY{n}{train}\PY{p}{(}\PY{n}{lr} \PY{o}{=} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{iters} \PY{o}{=} \PY{l+m+mi}{30000}\PY{p}{,} \PY{n}{n\PYZus{}layers} \PY{o}{=} \PY{n}{n\PYZus{}layers}\PY{p}{,} \PY{n}{n\PYZus{}x} \PY{o}{=} \PY{n}{n\PYZus{}x}\PY{p}{,} \PY{n}{fun\PYZus{}name\PYZus{}list} \PY{o}{=} \PY{n}{fun\PYZus{}name\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loss at iteration 0:	0.69314715
+train accuracy: 65.55\%
+
+
+Loss at iteration 100:	0.67409575
+train accuracy: 65.55\%
+
+
+Loss at iteration 200:	0.66251993
+train accuracy: 65.55\%
+
+
+Loss at iteration 300:	0.65545215
+train accuracy: 65.55\%
+
+
+Loss at iteration 400:	0.65111178
+train accuracy: 65.55\%
+
+
+Loss at iteration 500:	0.64843110
+train accuracy: 65.55\%
+
+
+Loss at iteration 600:	0.64676693
+train accuracy: 65.55\%
+
+
+Loss at iteration 700:	0.64572917
+train accuracy: 65.55\%
+
+
+Loss at iteration 800:	0.64507961
+train accuracy: 65.55\%
+
+
+Loss at iteration 900:	0.64467176
+train accuracy: 65.55\%
+
+
+Loss at iteration 1000:	0.64441501
+train accuracy: 65.55\%
+
+
+Loss at iteration 1100:	0.64425305
+train accuracy: 65.55\%
+
+
+Loss at iteration 1200:	0.64415071
+train accuracy: 65.55\%
+
+
+Loss at iteration 1300:	0.64408596
+train accuracy: 65.55\%
+
+
+Loss at iteration 1400:	0.64404494
+train accuracy: 65.55\%
+
+
+Loss at iteration 1500:	0.64401893
+train accuracy: 65.55\%
+
+
+Loss at iteration 1600:	0.64400243
+train accuracy: 65.55\%
+
+
+Loss at iteration 1700:	0.64399196
+train accuracy: 65.55\%
+
+
+Loss at iteration 1800:	0.64398531
+train accuracy: 65.55\%
+
+
+Loss at iteration 1900:	0.64398108
+train accuracy: 65.55\%
+
+
+Loss at iteration 2000:	0.64397840
+train accuracy: 65.55\%
+
+
+Loss at iteration 2100:	0.64397669
+train accuracy: 65.55\%
+
+
+Loss at iteration 2200:	0.64397560
+train accuracy: 65.55\%
+
+
+Loss at iteration 2300:	0.64397491
+train accuracy: 65.55\%
+
+
+Loss at iteration 2400:	0.64397447
+train accuracy: 65.55\%
+
+
+Loss at iteration 2500:	0.64397420
+train accuracy: 65.55\%
+
+
+Loss at iteration 2600:	0.64397402
+train accuracy: 65.55\%
+
+
+Loss at iteration 2700:	0.64397390
+train accuracy: 65.55\%
+
+
+Loss at iteration 2800:	0.64397383
+train accuracy: 65.55\%
+
+
+Loss at iteration 2900:	0.64397379
+train accuracy: 65.55\%
+
+
+Loss at iteration 3000:	0.64397376
+train accuracy: 65.55\%
+
+
+Loss at iteration 3100:	0.64397374
+train accuracy: 65.55\%
+
+
+Loss at iteration 3200:	0.64397373
+train accuracy: 65.55\%
+
+
+Loss at iteration 3300:	0.64397372
+train accuracy: 65.55\%
+
+
+Loss at iteration 3400:	0.64397371
+train accuracy: 65.55\%
+
+
+Loss at iteration 3500:	0.64397371
+train accuracy: 65.55\%
+
+
+Loss at iteration 3600:	0.64397371
+train accuracy: 65.55\%
+
+
+Loss at iteration 3700:	0.64397371
+train accuracy: 65.55\%
+
+
+Loss at iteration 3800:	0.64397371
+train accuracy: 65.55\%
+
+
+Loss at iteration 3900:	0.64397371
+train accuracy: 65.55\%
+
+
+Loss at iteration 4000:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 4100:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 4200:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 4300:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 4400:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 4500:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 4600:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 4700:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 4800:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 4900:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 5000:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 5100:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 5200:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 5300:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 5400:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 5500:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 5600:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 5700:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 5800:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 5900:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 6000:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 6100:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 6200:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 6300:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 6400:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 6500:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 6600:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 6700:	0.64397370
+train accuracy: 65.55\%
+
+
+Loss at iteration 6800:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 6900:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 7000:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 7100:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 7200:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 7300:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 7400:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 7500:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 7600:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 7700:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 7800:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 7900:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 8000:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 8100:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 8200:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 8300:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 8400:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 8500:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 8600:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 8700:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 8800:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 8900:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 9000:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 9100:	0.64397369
+train accuracy: 65.55\%
+
+
+Loss at iteration 9200:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 9300:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 9400:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 9500:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 9600:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 9700:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 9800:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 9900:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 10000:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 10100:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 10200:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 10300:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 10400:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 10500:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 10600:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 10700:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 10800:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 10900:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 11000:	0.64397368
+train accuracy: 65.55\%
+
+
+Loss at iteration 11100:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 11200:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 11300:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 11400:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 11500:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 11600:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 11700:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 11800:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 11900:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 12000:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 12100:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 12200:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 12300:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 12400:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 12500:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 12600:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 12700:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 12800:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 12900:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 13000:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 13100:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 13200:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 13300:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 13400:	0.64397367
+train accuracy: 65.55\%
+
+
+Loss at iteration 13500:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 13600:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 13700:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 13800:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 13900:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 14000:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 14100:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 14200:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 14300:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 14400:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 14500:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 14600:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 14700:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 14800:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 14900:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 15000:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 15100:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 15200:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 15300:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 15400:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 15500:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 15600:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 15700:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 15800:	0.64397366
+train accuracy: 65.55\%
+
+
+Loss at iteration 15900:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 16000:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 16100:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 16200:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 16300:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 16400:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 16500:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 16600:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 16700:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 16800:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 16900:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 17000:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 17100:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 17200:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 17300:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 17400:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 17500:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 17600:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 17700:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 17800:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 17900:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 18000:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 18100:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 18200:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 18300:	0.64397365
+train accuracy: 65.55\%
+
+
+Loss at iteration 18400:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 18500:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 18600:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 18700:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 18800:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 18900:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 19000:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 19100:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 19200:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 19300:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 19400:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 19500:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 19600:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 19700:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 19800:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 19900:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 20000:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 20100:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 20200:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 20300:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 20400:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 20500:	0.64397364
+train accuracy: 65.55\%
+
+
+Loss at iteration 20600:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 20700:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 20800:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 20900:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 21000:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 21100:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 21200:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 21300:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 21400:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 21500:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 21600:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 21700:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 21800:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 21900:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 22000:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 22100:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 22200:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 22300:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 22400:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 22500:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 22600:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 22700:	0.64397363
+train accuracy: 65.55\%
+
+
+Loss at iteration 22800:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 22900:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 23000:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 23100:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 23200:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 23300:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 23400:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 23500:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 23600:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 23700:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 23800:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 23900:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 24000:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 24100:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 24200:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 24300:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 24400:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 24500:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 24600:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 24700:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 24800:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 24900:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 25000:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 25100:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 25200:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 25300:	0.64397362
+train accuracy: 65.55\%
+
+
+Loss at iteration 25400:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 25500:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 25600:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 25700:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 25800:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 25900:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 26000:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 26100:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 26200:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 26300:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 26400:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 26500:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 26600:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 26700:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 26800:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 26900:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 27000:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 27100:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 27200:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 27300:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 27400:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 27500:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 27600:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 27700:	0.64397361
+train accuracy: 65.55\%
+
+
+Loss at iteration 27800:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 27900:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 28000:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 28100:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 28200:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 28300:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 28400:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 28500:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 28600:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 28700:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 28800:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 28900:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 29000:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 29100:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 29200:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 29300:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 29400:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 29500:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 29600:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 29700:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 29800:	0.64397360
+train accuracy: 65.55\%
+
+
+Loss at iteration 29900:	0.64397360
+train accuracy: 65.55\%
+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{load\PYZus{}train\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{/}\PY{l+m+mf}{255.} \PY{c+c1}{\PYZsh{} normalize the data to [0, 1]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train accuracy: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{test\PYZus{}model(x, y, Wlist, blist, fun\PYZus{}name\PYZus{}list) * 100:.2f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{load\PYZus{}test\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{/}\PY{l+m+mf}{255.} \PY{c+c1}{\PYZsh{} normalize the data to [0, 1]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test accuracy: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{test\PYZus{}model(x, y, Wlist, blist, fun\PYZus{}name\PYZus{}list) * 100:.2f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train accuracy: 64.32\%
+test accuracy: 49.75\%
+
+    \end{Verbatim}
+
+    \paragraph{We see that the train and test accuracies have gone
+down.}\label{we-see-that-the-train-and-test-accuracies-have-gone-down.}
+
+\paragraph{This model is a much more complex model compared to both the
+single neuron as well as the 2-layer models and it has failed to
+learn.}\label{this-model-is-a-much-more-complex-model-compared-to-both-the-single-neuron-as-well-as-the-2-layer-models-and-it-has-failed-to-learn.}
+
+    \subsubsection{4. Play with a few learning rates and explain your
+observations.}\label{play-with-a-few-learning-rates-and-explain-your-observations.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{n\PYZus{}layers} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{iters} \PY{o}{=} \PY{l+m+mi}{6000}
+         \PY{n}{n\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{fun\PYZus{}name\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{lrs} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.01} \PY{o}{+} \PY{n}{i}\PY{o}{*}\PY{l+m+mf}{0.005} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         \PY{n}{losses\PYZus{}for\PYZus{}lrs} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{lrs}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{tqdm}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{lrs}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{Wlist}\PY{p}{,} \PY{n}{blist}\PY{p}{,} \PY{n}{losses\PYZus{}for\PYZus{}lrs}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{train}\PY{p}{(}\PY{n}{lr} \PY{o}{=} \PY{n}{lrs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{iters} \PY{o}{=} \PY{n}{iters}\PY{p}{,} \PY{n}{n\PYZus{}layers} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{n\PYZus{}x} \PY{o}{=} \PY{n}{n\PYZus{}x}\PY{p}{,} \PY{n}{fun\PYZus{}name\PYZus{}list} \PY{o}{=} \PY{n}{fun\PYZus{}name\PYZus{}list}\PY{p}{)}
+         
+             \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{load\PYZus{}train\PYZus{}data}\PY{p}{(}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{/}\PY{l+m+mf}{255.} \PY{c+c1}{\PYZsh{} normalize the data to [0, 1]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{For lr = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{lrs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train accuracy: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{test\PYZus{}model(x, y, Wlist, blist, fun\PYZus{}name\PYZus{}list) * 100:.2f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{load\PYZus{}test\PYZus{}data}\PY{p}{(}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{/}\PY{l+m+mf}{255.} \PY{c+c1}{\PYZsh{} normalize the data to [0, 1]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test accuracy: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{test\PYZus{}model(x, y, Wlist, blist, fun\PYZus{}name\PYZus{}list) * 100:.2f\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+HBox(children=(IntProgress(value=0, max=4), HTML(value='')))
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loss at iteration 0:	0.69190731
+train accuracy: 65.55\%
+
+
+Loss at iteration 100:	0.64561201
+train accuracy: 65.55\%
+
+
+Loss at iteration 200:	0.63608484
+train accuracy: 65.55\%
+
+
+Loss at iteration 300:	0.61991669
+train accuracy: 65.55\%
+
+
+Loss at iteration 400:	0.59503117
+train accuracy: 65.55\%
+
+
+Loss at iteration 500:	0.56490897
+train accuracy: 66.51\%
+
+
+Loss at iteration 600:	0.53039603
+train accuracy: 71.29\%
+
+
+Loss at iteration 700:	0.49180244
+train accuracy: 76.56\%
+
+
+Loss at iteration 800:	0.45060302
+train accuracy: 80.38\%
+
+
+Loss at iteration 900:	0.40886277
+train accuracy: 86.60\%
+
+
+Loss at iteration 1000:	0.36726491
+train accuracy: 88.52\%
+
+
+Loss at iteration 1100:	0.32733606
+train accuracy: 90.43\%
+
+
+Loss at iteration 1200:	0.28982319
+train accuracy: 93.30\%
+
+
+Loss at iteration 1300:	0.25534617
+train accuracy: 94.26\%
+
+
+Loss at iteration 1400:	0.22429118
+train accuracy: 95.22\%
+
+
+Loss at iteration 1500:	0.19853416
+train accuracy: 95.69\%
+
+
+Loss at iteration 1600:	0.17116488
+train accuracy: 97.13\%
+
+
+Loss at iteration 1700:	0.15282058
+train accuracy: 97.61\%
+
+
+Loss at iteration 1800:	0.13582082
+train accuracy: 97.61\%
+
+
+Loss at iteration 1900:	0.11666848
+train accuracy: 98.09\%
+
+
+Loss at iteration 2000:	0.10229960
+train accuracy: 99.52\%
+
+
+Loss at iteration 2100:	0.09226882
+train accuracy: 99.52\%
+
+
+Loss at iteration 2200:	0.08167306
+train accuracy: 99.52\%
+
+
+Loss at iteration 2300:	0.07363584
+train accuracy: 99.52\%
+
+
+Loss at iteration 2400:	0.06631302
+train accuracy: 99.52\%
+
+
+Loss at iteration 2500:	0.05981141
+train accuracy: 99.52\%
+
+
+Loss at iteration 2600:	0.05458313
+train accuracy: 99.52\%
+
+
+Loss at iteration 2700:	0.04994722
+train accuracy: 99.52\%
+
+
+Loss at iteration 2800:	0.04586481
+train accuracy: 100.00\%
+
+
+Loss at iteration 2900:	0.04217136
+train accuracy: 100.00\%
+
+
+Loss at iteration 3000:	0.03900580
+train accuracy: 100.00\%
+
+
+Loss at iteration 3100:	0.03621018
+train accuracy: 100.00\%
+
+
+Loss at iteration 3200:	0.03372675
+train accuracy: 100.00\%
+
+
+Loss at iteration 3300:	0.03145390
+train accuracy: 100.00\%
+
+
+Loss at iteration 3400:	0.02943953
+train accuracy: 100.00\%
+
+
+Loss at iteration 3500:	0.02761032
+train accuracy: 100.00\%
+
+
+Loss at iteration 3600:	0.02596763
+train accuracy: 100.00\%
+
+
+Loss at iteration 3700:	0.02449277
+train accuracy: 100.00\%
+
+
+Loss at iteration 3800:	0.02312934
+train accuracy: 100.00\%
+
+
+Loss at iteration 3900:	0.02189769
+train accuracy: 100.00\%
+
+
+Loss at iteration 4000:	0.02075208
+train accuracy: 100.00\%
+
+
+Loss at iteration 4100:	0.01971250
+train accuracy: 100.00\%
+
+
+Loss at iteration 4200:	0.01875523
+train accuracy: 100.00\%
+
+
+Loss at iteration 4300:	0.01787443
+train accuracy: 100.00\%
+
+
+Loss at iteration 4400:	0.01706714
+train accuracy: 100.00\%
+
+
+Loss at iteration 4500:	0.01630853
+train accuracy: 100.00\%
+
+
+Loss at iteration 4600:	0.01560306
+train accuracy: 100.00\%
+
+
+Loss at iteration 4700:	0.01495336
+train accuracy: 100.00\%
+
+
+Loss at iteration 4800:	0.01434724
+train accuracy: 100.00\%
+
+
+Loss at iteration 4900:	0.01378347
+train accuracy: 100.00\%
+
+
+Loss at iteration 5000:	0.01325564
+train accuracy: 100.00\%
+
+
+Loss at iteration 5100:	0.01275524
+train accuracy: 100.00\%
+
+
+Loss at iteration 5200:	0.01229163
+train accuracy: 100.00\%
+
+
+Loss at iteration 5300:	0.01185616
+train accuracy: 100.00\%
+
+
+Loss at iteration 5400:	0.01144492
+train accuracy: 100.00\%
+
+
+Loss at iteration 5500:	0.01106040
+train accuracy: 100.00\%
+
+
+Loss at iteration 5600:	0.01069195
+train accuracy: 100.00\%
+
+
+Loss at iteration 5700:	0.01034565
+train accuracy: 100.00\%
+
+
+Loss at iteration 5800:	0.01002254
+train accuracy: 100.00\%
+
+
+Loss at iteration 5900:	0.00971413
+train accuracy: 100.00\%
+
+
+
+
+For lr =  0.005
+train accuracy: 100.00\%
+test accuracy: 72.00\%
+
+
+
+Loss at iteration 0:	0.69190731
+train accuracy: 62.68\%
+
+
+Loss at iteration 100:	0.63617000
+train accuracy: 65.55\%
+
+
+Loss at iteration 200:	0.59532286
+train accuracy: 65.55\%
+
+
+Loss at iteration 300:	0.53103919
+train accuracy: 70.33\%
+
+
+Loss at iteration 400:	0.45542965
+train accuracy: 77.51\%
+
+
+Loss at iteration 500:	0.43220768
+train accuracy: 72.73\%
+
+
+Loss at iteration 600:	0.39669225
+train accuracy: 76.08\%
+
+
+Loss at iteration 700:	0.32516763
+train accuracy: 86.12\%
+
+
+Loss at iteration 800:	0.32567005
+train accuracy: 83.73\%
+
+
+Loss at iteration 900:	0.27127901
+train accuracy: 88.04\%
+
+
+Loss at iteration 1000:	0.26536937
+train accuracy: 84.69\%
+
+
+Loss at iteration 1100:	0.12936465
+train accuracy: 97.13\%
+
+
+Loss at iteration 1200:	0.11378794
+train accuracy: 97.61\%
+
+
+Loss at iteration 1300:	0.08566911
+train accuracy: 99.52\%
+
+
+Loss at iteration 1400:	0.06707633
+train accuracy: 99.52\%
+
+
+Loss at iteration 1500:	0.05164780
+train accuracy: 99.52\%
+
+
+Loss at iteration 1600:	0.04367604
+train accuracy: 100.00\%
+
+
+Loss at iteration 1700:	0.03696751
+train accuracy: 100.00\%
+
+
+Loss at iteration 1800:	0.03209510
+train accuracy: 100.00\%
+
+
+Loss at iteration 1900:	0.02806403
+train accuracy: 100.00\%
+
+
+Loss at iteration 2000:	0.02476531
+train accuracy: 100.00\%
+
+
+Loss at iteration 2100:	0.02208572
+train accuracy: 100.00\%
+
+
+Loss at iteration 2200:	0.01987988
+train accuracy: 100.00\%
+
+
+Loss at iteration 2300:	0.01797075
+train accuracy: 100.00\%
+
+
+Loss at iteration 2400:	0.01635758
+train accuracy: 100.00\%
+
+
+Loss at iteration 2500:	0.01498264
+train accuracy: 100.00\%
+
+
+Loss at iteration 2600:	0.01378971
+train accuracy: 100.00\%
+
+
+Loss at iteration 2700:	0.01274225
+train accuracy: 100.00\%
+
+
+Loss at iteration 2800:	0.01181707
+train accuracy: 100.00\%
+
+
+Loss at iteration 2900:	0.01101694
+train accuracy: 100.00\%
+
+
+Loss at iteration 3000:	0.01029209
+train accuracy: 100.00\%
+
+
+Loss at iteration 3100:	0.00965058
+train accuracy: 100.00\%
+
+
+Loss at iteration 3200:	0.00907657
+train accuracy: 100.00\%
+
+
+Loss at iteration 3300:	0.00855628
+train accuracy: 100.00\%
+
+
+Loss at iteration 3400:	0.00808975
+train accuracy: 100.00\%
+
+
+Loss at iteration 3500:	0.00766040
+train accuracy: 100.00\%
+
+
+Loss at iteration 3600:	0.00727059
+train accuracy: 100.00\%
+
+
+Loss at iteration 3700:	0.00691649
+train accuracy: 100.00\%
+
+
+Loss at iteration 3800:	0.00659236
+train accuracy: 100.00\%
+
+
+Loss at iteration 3900:	0.00628972
+train accuracy: 100.00\%
+
+
+Loss at iteration 4000:	0.00601478
+train accuracy: 100.00\%
+
+
+Loss at iteration 4100:	0.00575715
+train accuracy: 100.00\%
+
+
+Loss at iteration 4200:	0.00551969
+train accuracy: 100.00\%
+
+
+Loss at iteration 4300:	0.00529857
+train accuracy: 100.00\%
+
+
+Loss at iteration 4400:	0.00509284
+train accuracy: 100.00\%
+
+
+Loss at iteration 4500:	0.00490287
+train accuracy: 100.00\%
+
+
+Loss at iteration 4600:	0.00472273
+train accuracy: 100.00\%
+
+
+Loss at iteration 4700:	0.00455468
+train accuracy: 100.00\%
+
+
+Loss at iteration 4800:	0.00439744
+train accuracy: 100.00\%
+
+
+Loss at iteration 4900:	0.00424913
+train accuracy: 100.00\%
+
+
+Loss at iteration 5000:	0.00411009
+train accuracy: 100.00\%
+
+
+Loss at iteration 5100:	0.00397888
+train accuracy: 100.00\%
+
+
+Loss at iteration 5200:	0.00385408
+train accuracy: 100.00\%
+
+
+Loss at iteration 5300:	0.00373732
+train accuracy: 100.00\%
+
+
+Loss at iteration 5400:	0.00362561
+train accuracy: 100.00\%
+
+
+Loss at iteration 5500:	0.00352026
+train accuracy: 100.00\%
+
+
+Loss at iteration 5600:	0.00342014
+train accuracy: 100.00\%
+
+
+Loss at iteration 5700:	0.00332501
+train accuracy: 100.00\%
+
+
+Loss at iteration 5800:	0.00323482
+train accuracy: 100.00\%
+
+
+Loss at iteration 5900:	0.00314887
+train accuracy: 100.00\%
+
+
+
+
+For lr =  0.01
+train accuracy: 100.00\%
+test accuracy: 68.00\%
+
+
+
+Loss at iteration 0:	0.69190731
+train accuracy: 64.11\%
+
+
+Loss at iteration 100:	0.62027941
+train accuracy: 65.55\%
+
+
+Loss at iteration 200:	0.53271346
+train accuracy: 74.16\%
+
+
+Loss at iteration 300:	0.50108400
+train accuracy: 79.90\%
+
+
+Loss at iteration 400:	0.43695953
+train accuracy: 81.34\%
+
+
+Loss at iteration 500:	0.37155965
+train accuracy: 83.73\%
+
+
+Loss at iteration 600:	0.31711996
+train accuracy: 88.04\%
+
+
+Loss at iteration 700:	0.24280990
+train accuracy: 93.30\%
+
+
+Loss at iteration 800:	0.15094937
+train accuracy: 96.65\%
+
+
+Loss at iteration 900:	0.11257609
+train accuracy: 98.56\%
+
+
+Loss at iteration 1000:	0.08054688
+train accuracy: 98.09\%
+
+
+Loss at iteration 1100:	0.05902998
+train accuracy: 99.04\%
+
+
+Loss at iteration 1200:	0.04383528
+train accuracy: 99.52\%
+
+
+Loss at iteration 1300:	0.03493610
+train accuracy: 99.52\%
+
+
+Loss at iteration 1400:	0.02831880
+train accuracy: 100.00\%
+
+
+Loss at iteration 1500:	0.02367308
+train accuracy: 100.00\%
+
+
+Loss at iteration 1600:	0.02014927
+train accuracy: 100.00\%
+
+
+Loss at iteration 1700:	0.01737470
+train accuracy: 100.00\%
+
+
+Loss at iteration 1800:	0.01520032
+train accuracy: 100.00\%
+
+
+Loss at iteration 1900:	0.01344417
+train accuracy: 100.00\%
+
+
+Loss at iteration 2000:	0.01199731
+train accuracy: 100.00\%
+
+
+Loss at iteration 2100:	0.01080615
+train accuracy: 100.00\%
+
+
+Loss at iteration 2200:	0.00979381
+train accuracy: 100.00\%
+
+
+Loss at iteration 2300:	0.00893974
+train accuracy: 100.00\%
+
+
+Loss at iteration 2400:	0.00820463
+train accuracy: 100.00\%
+
+
+Loss at iteration 2500:	0.00757072
+train accuracy: 100.00\%
+
+
+Loss at iteration 2600:	0.00701505
+train accuracy: 100.00\%
+
+
+Loss at iteration 2700:	0.00652606
+train accuracy: 100.00\%
+
+
+Loss at iteration 2800:	0.00609553
+train accuracy: 100.00\%
+
+
+Loss at iteration 2900:	0.00571451
+train accuracy: 100.00\%
+
+
+Loss at iteration 3000:	0.00537051
+train accuracy: 100.00\%
+
+
+Loss at iteration 3100:	0.00506259
+train accuracy: 100.00\%
+
+
+Loss at iteration 3200:	0.00478375
+train accuracy: 100.00\%
+
+
+Loss at iteration 3300:	0.00453236
+train accuracy: 100.00\%
+
+
+Loss at iteration 3400:	0.00430145
+train accuracy: 100.00\%
+
+
+Loss at iteration 3500:	0.00409361
+train accuracy: 100.00\%
+
+
+Loss at iteration 3600:	0.00390050
+train accuracy: 100.00\%
+
+
+Loss at iteration 3700:	0.00372301
+train accuracy: 100.00\%
+
+
+Loss at iteration 3800:	0.00356061
+train accuracy: 100.00\%
+
+
+Loss at iteration 3900:	0.00341027
+train accuracy: 100.00\%
+
+
+Loss at iteration 4000:	0.00327027
+train accuracy: 100.00\%
+
+
+Loss at iteration 4100:	0.00314136
+train accuracy: 100.00\%
+
+
+Loss at iteration 4200:	0.00302034
+train accuracy: 100.00\%
+
+
+Loss at iteration 4300:	0.00290748
+train accuracy: 100.00\%
+
+
+Loss at iteration 4400:	0.00280257
+train accuracy: 100.00\%
+
+
+Loss at iteration 4500:	0.00270402
+train accuracy: 100.00\%
+
+
+Loss at iteration 4600:	0.00261171
+train accuracy: 100.00\%
+
+
+Loss at iteration 4700:	0.00252484
+train accuracy: 100.00\%
+
+
+Loss at iteration 4800:	0.00244297
+train accuracy: 100.00\%
+
+
+Loss at iteration 4900:	0.00236529
+train accuracy: 100.00\%
+
+
+Loss at iteration 5000:	0.00229269
+train accuracy: 100.00\%
+
+
+Loss at iteration 5100:	0.00222385
+train accuracy: 100.00\%
+
+
+Loss at iteration 5200:	0.00215860
+train accuracy: 100.00\%
+
+
+Loss at iteration 5300:	0.00209640
+train accuracy: 100.00\%
+
+
+Loss at iteration 5400:	0.00203794
+train accuracy: 100.00\%
+
+
+Loss at iteration 5500:	0.00198204
+train accuracy: 100.00\%
+
+
+Loss at iteration 5600:	0.00192907
+train accuracy: 100.00\%
+
+
+Loss at iteration 5700:	0.00187830
+train accuracy: 100.00\%
+
+
+Loss at iteration 5800:	0.00183017
+train accuracy: 100.00\%
+
+
+Loss at iteration 5900:	0.00178457
+train accuracy: 100.00\%
+
+
+
+
+For lr =  0.015
+train accuracy: 100.00\%
+test accuracy: 72.00\%
+
+
+
+Loss at iteration 0:	0.69190731
+train accuracy: 64.59\%
+
+
+Loss at iteration 100:	0.59586247
+train accuracy: 65.55\%
+
+
+Loss at iteration 200:	0.52856486
+train accuracy: 68.42\%
+
+
+Loss at iteration 300:	0.45994380
+train accuracy: 72.25\%
+
+
+Loss at iteration 400:	0.40108015
+train accuracy: 78.47\%
+
+
+Loss at iteration 500:	0.32808388
+train accuracy: 83.25\%
+
+
+Loss at iteration 600:	0.35727003
+train accuracy: 78.47\%
+
+
+Loss at iteration 700:	0.17134116
+train accuracy: 94.74\%
+
+
+Loss at iteration 800:	0.10826061
+train accuracy: 98.56\%
+
+
+Loss at iteration 900:	0.06630002
+train accuracy: 99.04\%
+
+
+Loss at iteration 1000:	0.04219191
+train accuracy: 99.52\%
+
+
+Loss at iteration 1100:	0.03059738
+train accuracy: 100.00\%
+
+
+Loss at iteration 1200:	0.02381563
+train accuracy: 100.00\%
+
+
+Loss at iteration 1300:	0.01923350
+train accuracy: 100.00\%
+
+
+Loss at iteration 1400:	0.01588643
+train accuracy: 100.00\%
+
+
+Loss at iteration 1500:	0.01346827
+train accuracy: 100.00\%
+
+
+Loss at iteration 1600:	0.01159816
+train accuracy: 100.00\%
+
+
+Loss at iteration 1700:	0.01012925
+train accuracy: 100.00\%
+
+
+Loss at iteration 1800:	0.00896119
+train accuracy: 100.00\%
+
+
+Loss at iteration 1900:	0.00799684
+train accuracy: 100.00\%
+
+
+Loss at iteration 2000:	0.00721074
+train accuracy: 100.00\%
+
+
+Loss at iteration 2100:	0.00654507
+train accuracy: 100.00\%
+
+
+Loss at iteration 2200:	0.00597882
+train accuracy: 100.00\%
+
+
+Loss at iteration 2300:	0.00549903
+train accuracy: 100.00\%
+
+
+Loss at iteration 2400:	0.00507839
+train accuracy: 100.00\%
+
+
+Loss at iteration 2500:	0.00471122
+train accuracy: 100.00\%
+
+
+Loss at iteration 2600:	0.00438960
+train accuracy: 100.00\%
+
+
+Loss at iteration 2700:	0.00410537
+train accuracy: 100.00\%
+
+
+Loss at iteration 2800:	0.00385269
+train accuracy: 100.00\%
+
+
+Loss at iteration 2900:	0.00362528
+train accuracy: 100.00\%
+
+
+Loss at iteration 3000:	0.00342194
+train accuracy: 100.00\%
+
+
+Loss at iteration 3100:	0.00323757
+train accuracy: 100.00\%
+
+
+Loss at iteration 3200:	0.00306900
+train accuracy: 100.00\%
+
+
+Loss at iteration 3300:	0.00291729
+train accuracy: 100.00\%
+
+
+Loss at iteration 3400:	0.00277935
+train accuracy: 100.00\%
+
+
+Loss at iteration 3500:	0.00265077
+train accuracy: 100.00\%
+
+
+Loss at iteration 3600:	0.00253338
+train accuracy: 100.00\%
+
+
+Loss at iteration 3700:	0.00242541
+train accuracy: 100.00\%
+
+
+Loss at iteration 3800:	0.00232436
+train accuracy: 100.00\%
+
+
+Loss at iteration 3900:	0.00223151
+train accuracy: 100.00\%
+
+
+Loss at iteration 4000:	0.00214526
+train accuracy: 100.00\%
+
+
+Loss at iteration 4100:	0.00206514
+train accuracy: 100.00\%
+
+
+Loss at iteration 4200:	0.00198938
+train accuracy: 100.00\%
+
+
+Loss at iteration 4300:	0.00191964
+train accuracy: 100.00\%
+
+
+Loss at iteration 4400:	0.00185296
+train accuracy: 100.00\%
+
+
+Loss at iteration 4500:	0.00179190
+train accuracy: 100.00\%
+
+
+Loss at iteration 4600:	0.00173288
+train accuracy: 100.00\%
+
+
+Loss at iteration 4700:	0.00167773
+train accuracy: 100.00\%
+
+
+Loss at iteration 4800:	0.00162601
+train accuracy: 100.00\%
+
+
+Loss at iteration 4900:	0.00157709
+train accuracy: 100.00\%
+
+
+Loss at iteration 5000:	0.00153086
+train accuracy: 100.00\%
+
+
+Loss at iteration 5100:	0.00148696
+train accuracy: 100.00\%
+
+
+Loss at iteration 5200:	0.00144525
+train accuracy: 100.00\%
+
+
+Loss at iteration 5300:	0.00140569
+train accuracy: 100.00\%
+
+
+Loss at iteration 5400:	0.00136777
+train accuracy: 100.00\%
+
+
+Loss at iteration 5500:	0.00133218
+train accuracy: 100.00\%
+
+
+Loss at iteration 5600:	0.00129806
+train accuracy: 100.00\%
+
+
+Loss at iteration 5700:	0.00126535
+train accuracy: 100.00\%
+
+
+Loss at iteration 5800:	0.00123419
+train accuracy: 100.00\%
+
+
+Loss at iteration 5900:	0.00120451
+train accuracy: 100.00\%
+
+
+
+
+For lr =  0.02
+train accuracy: 100.00\%
+test accuracy: 74.00\%
+
+
+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{losses\PYZus{}for\PYZus{}lrs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x\PYZus{}axis} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{iters}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}axis}\PY{p}{,} \PY{n}{losses\PYZus{}for\PYZus{}lrs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr = }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{lrs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iterations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}axis}\PY{p}{,} \PY{n}{losses\PYZus{}for\PYZus{}lrs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr = }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{lrs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iterations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}axis}\PY{p}{,} \PY{n}{losses\PYZus{}for\PYZus{}lrs}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr = }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{lrs}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iterations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}axis}\PY{p}{,} \PY{n}{losses\PYZus{}for\PYZus{}lrs}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr = }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{lrs}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iterations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.legend()}
+         \PY{c+c1}{\PYZsh{} plt.show()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+6000
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{We see that among the chosen learning rates, lr = 0.005 leads
+to least variations in the loss over the iterations. But, we also see
+that lr = 0.02 preforms best on the test
+data.}\label{we-see-that-among-the-chosen-learning-rates-lr-0.005-leads-to-least-variations-in-the-loss-over-the-iterations.-but-we-also-see-that-lr-0.02-preforms-best-on-the-test-data.}
+
+    \paragraph{Note: All questions will be answered in the jupyter notebook
+only. Wherever code is required, you write and run the code in a code
+cell. For text, write and render in a markdown
+cell.}\label{note-all-questions-will-be-answered-in-the-jupyter-notebook-only.-wherever-code-is-required-you-write-and-run-the-code-in-a-code-cell.-for-text-write-and-render-in-a-markdown-cell.}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
